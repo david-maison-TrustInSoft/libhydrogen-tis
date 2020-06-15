@@ -28,7 +28,8 @@
    )
    *F
    (quote
-      hash kdf secretbox sign pwhash
+      hash
+      # hash kdf secretbox sign pwhash
    )
    *L
    (make
