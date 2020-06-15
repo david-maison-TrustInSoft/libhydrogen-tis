@@ -17,19 +17,16 @@
 (setq
    *M
    (quote
-      x86_32 sparc_64
-
-      # sparc_64 sparc_32
-      # x86_32 x86_64
-      # x86_16 x86_16_huge
-      # armeb_eabi arm_eabi aarch64 aarch64eb
-      # rv64ifdq rv32ifdq
-      # mips_o32 mips_n32 mips_64 mipsel_64
+      sparc_64 sparc_32
+      x86_32 x86_64
+      x86_16 x86_16_huge
+      armeb_eabi arm_eabi aarch64 aarch64eb
+      rv64ifdq rv32ifdq
+      mips_o32 mips_n32 mips_64 mipsel_64
    )
    *F
    (quote
-      hash
-      # hash kdf secretbox sign pwhash
+      hash kdf secretbox sign pwhash
    )
    *L
    (make
