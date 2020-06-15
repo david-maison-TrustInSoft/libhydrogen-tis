@@ -1,10 +1,8 @@
 #include <assert.h>
 #include "hydrogen.h"
 
-typedef uint8_t u8;
-
 #define ARRAY(name, size) \
-    u8 name[size]; \
+    uint8_t name[size]; \
     for(size_t i = 0; i < size; i++) name[i] = i;
 #define CTX(name, size) \
     char name[size]; \
@@ -31,7 +29,7 @@ void secretbox(void) {
       CTX(ctx, 8);
     ARRAY(key, 32);
     ARRAY(prb, 16);
-    int i = 0;
+    int i;
 
     i = hydro_secretbox_encrypt (out,   m, 32, 777, ctx, key);
         hydro_secretbox_probe_create(prb, out, 68, ctx, key);
@@ -41,9 +39,34 @@ void secretbox(void) {
     i++;
 }
 
+void sign(void) {
+    ARRAY(sig, 64);
+      CTX(ctx,  8);
+    ARRAY(in , 32);
+    int i;
+
+    hydro_sign_keypair pair;
+    hydro_sign_keygen(&pair);
+    hydro_sign_create(sig, in, 32, ctx, pair.sk);
+    i = hydro_sign_verify(sig, in, 32, ctx, pair.pk);
+    assert(i == 0);
+}
+
+void pwhash(void) {
+    ARRAY(master, 32);
+    ARRAY(out, 32);
+      CTX( in, 32);
+      CTX(ctx,  8);
+    hydro_pwhash_deterministic(out, 32, in, 32, ctx, master, 1024, 0, 1);
+}
+
 int main(void) {
+    hydro_init();
+
     hash();
     kdf();
     secretbox();
+    sign();
+    pwhash();
     return 0;
 }
