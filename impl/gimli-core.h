@@ -1,3 +1,4 @@
+// XXX
 #undef __SSE2__
 
 #ifdef __SSE2__
